@@ -64,4 +64,25 @@ describe('PokemonPage Component', () => {
         // PokemonOptions attribute pokemon toBe true
         expect( options.attributes('pokemons') ).toBeTruthy()
      })
+
+     test('Pruebas en checkAnswer', async() => { 
+
+        const wrapper = shallowMount(PokemonPage, {  // Mount
+            data() {
+                return {
+                    pokemonArr: mockPokemons,
+                    pokemon: mockPokemons[0],
+                    showPokemon: false,
+                    showAnswer: false,
+                    message: ''
+                }
+            }
+        })
+
+        await wrapper.vm.checkAnswer(1)
+
+        expect( wrapper.find('h2').exists() ).toBeTruthy()
+        expect( wrapper.vm.showPokemon ).toBe(true)
+        expect( wrapper.find('h2').text() ).toBe(`Correcto, ${mockPokemons[0].name}`)
+    })
 })
